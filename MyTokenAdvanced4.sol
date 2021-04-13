@@ -5,9 +5,51 @@ ERC-20 Implementation
 Admin gets initial supply. 
 Admin can send funds to any address (transfer) and also allocate (approve) a spending amount for other addresses to spend (transferFrom)
 */
+contract Administrable {
+	address private _admin;
+
+	event AdminshipTransferred(address indexed currentAdmin, address indexed newAdmin);
+
+	constructor() internal {
+		_admin = msg.sender;
+		emit AdminshipTransferred(address(0),_admin);
+	}
+
+	function getAdmin() public view returns (address){
+		return _admin;
+	}
+
+	modifier onlyAdmin(){
+		require(msg.sender == _admin, "Executer must be the current admin");
+		_;
+	}
+
+	function transferAdminship(address newAdmin) public onlyAdmin {
+		emit AdminshipTransferred(_admin, newAdmin);
+		_admin = newAdmin;
+
+	}
+
+}
 
 
-contract MyToken{
+contract MyTokenAdvanced is MyToken, Administrable {
+
+	constructor (uint256 initialSupply, string memory tokenName, string memory tokenSymbol, uint8 decimalUnits, address newAdmin) public {
+		// We use 0 as initial supply so that the balance of the sender stays zero. The msg.sender can appoint someone else as admin. 
+		MyToken(0, tokenName, tokenSymbol, decimalUnits);
+		if(newAdmin != address(0) && newAdmin != msg.sender){
+			transferAdminship(newAdmin);
+		}
+		setBalance(getAdmin(), initialSupply);
+		setTotalSupply = initialSupply;
+	}
+
+}
+
+
+
+contract MyToken {
 	// initialize key-value (address-balance object)
 	mapping (address => uint256) private _balances;
 	mapping (address => mapping (address => uint256)) private _allowance;

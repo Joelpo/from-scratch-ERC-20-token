@@ -2,7 +2,7 @@ pragma solidity ^0.5.10;
 
 /*
 ERC-20 Implementation
-Admin gets initial supply. 
+Admin gets initial supply. Admin value is set on deployment of the contract.  
 Admin can send funds to any address (transfer) and also allocate (approve) a spending amount for other addresses to spend (transferFrom)
 */
 
@@ -12,6 +12,7 @@ contract MyToken{
 	mapping (address => uint256) private _balances;
 	mapping (address => mapping (address => uint256)) private _allowance;
 	
+	address private _admin;
 	string private _name;
 	string private _symbol;
 	uint8 private _decimals;
@@ -19,6 +20,7 @@ contract MyToken{
 	
 	event Transfer(address indexed from, address indexed to, uint256 value);
 	event Approval(address indexed owner, address indexed spender, uint256 value);
+	event AdminTransfer(address indexed from, address indexed to);
 
 	// msg.sender returns the address of the creator of the contract.
 	// in this case, we want the initial supply of the coin to be sent to the admin. 
@@ -28,6 +30,22 @@ contract MyToken{
 		_decimals = decimalUnits;
 		_symbol = tokenSymbol;
 		_name = tokenName;
+		_admin = msg.sender;
+		emit AdminTransfer(address(0),_admin);
+	}
+
+	function transferAdmin(address newAdmin) public returns (bool){
+		require(msg.sender != address(0), "Caller cannot be zero");
+		require(newAdmin != address(0), "New admin cannot be zero");
+		require(_admin == msg.sender,"Admin has to be changed from the current admin address");
+
+		_admin = newAdmin;
+		emit AdminTransfer(msg.sender,newAdmin);
+		return true;
+	}
+
+	function getAdmin() public view returns (address) {
+		return _admin;
 	}
 	
 	function getSymbol() public view returns (string memory){
