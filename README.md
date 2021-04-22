@@ -1,5 +1,10 @@
 # ERC-20 Token
- 
-Different implementations of ERC-20 Token on Ethereum. 
 
-Go to MyTokenAdvanced5.sol to check an administrable, mintable, buyable and sellable erc-20 token. 
+Implementation of an ERC-20 Token on Ethereum. 
+
+Check MyTokenAdvanced5.sol for an ERC-20 token with the following features: 
+
+- Administrable
+- Mintable
+- Buyable and sellable
+
