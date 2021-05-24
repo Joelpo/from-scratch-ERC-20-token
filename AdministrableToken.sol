@@ -3,10 +3,8 @@ pragma solidity ^0.5.10;
 /// @author joelpo
 
 /**
-@title AdministrableToken : ERC-20 Implementation
-@dev 
-Admin gets initial supply. 
-Admin can send funds to any address (transfer) and also allocate (approve) a spending amount for other addresses to spend (transferFrom)
+@title AdministrableToken : From scratch ERC-20 token implementation
+@dev Admin gets initial supply and can send funds to any address (transfer) and also allocate (approve) a spending amount for other addresses to spend (transferFrom)
 Token Minting by the admin is possible. 
 Admin can freeze an account.
 Token is buyable and sellable according to admin's price. 

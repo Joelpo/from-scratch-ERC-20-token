@@ -1,10 +1,9 @@
 # ERC-20 Token
 
-Implementation of an ERC-20 Token on Ethereum. 
+*From scratch implementation of an ERC-20 Token on Ethereum. *
 
-Check MyTokenAdvanced5.sol for an ERC-20 token with the following features: 
+AdminitrableToken.sol is an ERC-20 token with the following features: 
 
-- Administrable
-- Mintable
-- Buyable and sellable
+- Administrable : admin can mint, freeze accounts and approve allowances.
+- Buyable and sellable with ETH. 
 
