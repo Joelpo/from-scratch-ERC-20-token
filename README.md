@@ -1,6 +1,6 @@
-# ERC-20 Token
+# Administrable ERC-20 Token
 
-From scratch implementation of an ERC-20 Token on Ethereum.
+From scratch implementation of an ERC-20 Token on Ethereum where Admin can do basically everything. 
 
 AdminitrableToken.sol is an ERC-20 token with the following features: 
 
